@@ -10,14 +10,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Manuel Vila <mvila@3base.com>",
   "license": "MIT",
   "dependencies": {
     "base64url": "0.0.6",
     "co": "^3.1.0",
     "es6-promise": "^2.0.0",
-    "kinda-config": "https://github.com/kinda/kinda-config/tarball/master",
-    "kinda-translator": "https://github.com/kinda/kinda-translator/tarball/master",
+    "kinda-config": "kinda/kinda-config",
+    "kinda-translator": "kinda/kinda-translator",
     "lodash": "~2.4.1"
   }
 }

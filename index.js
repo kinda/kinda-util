@@ -12,32 +12,6 @@ var util = {};
 
 util.node = nodeUtil;
 
-var _log = function(msg, method) {
-  if (msg && msg.toJSON) msg = msg.toJSON();
-  if (typeof msg === 'object') msg = nodeUtil.inspect(msg);
-  var name = config.name;
-  if (name) msg = '[' + name + '] ' + msg;
-  console[method](msg);
-};
-
-util.log = function(msg) {
-  _log(msg, 'log');
-};
-
-util.error = function(msg) {
-  _log(msg, 'error');
-};
-
-util.logger = function(next) { // koa middleware
-  return function *(next) {
-    yield next;
-    var logLevel = this.logLevel != null ? this.logLevel : 1;
-    if (logLevel > 0) {
-      util.log(this.method + ' ' + this.url);
-    }
-  }
-};
-
 util.capitalize = function(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
