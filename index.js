@@ -287,16 +287,8 @@ util.normalizeURLQuery = function(query) {
 };
 
 util.promisify = function(fn) {
-  return new Promise(function(resolve, reject) {
-    co(function *() {
-      try {
-        var result = yield fn();
-        resolve(result);
-      } catch (err) {
-        reject(err);
-      }
-    })();
-  });
+  console.warn("'util.promisify' is deprecated");
+  return co(fn);
 };
 
 util.createTimeout = function(ms) {
