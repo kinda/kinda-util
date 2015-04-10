@@ -150,6 +150,7 @@ util.encodeValue = function(val) {
 };
 
 util.encodeObject = function(obj) {
+  obj = this.flattenObject(obj);
   var result = {};
   _.forOwn(obj, function(val, key) {
     result[key] = util.encodeValue(val);
@@ -178,6 +179,7 @@ util.decodeObject = function(obj) {
   _.forOwn(obj, function(val, key) {
     result[key] = util.decodeValue(val);
   });
+  result = this.expandObject(result);
   return result;
 };
 
