@@ -202,7 +202,7 @@ util.flattenObject = function(obj, parentPath) {
   _.forOwn(obj, function(val, key) {
     var path = key;
     if (parentPath) path = parentPath + path;
-    if (_.isObject(val)) {
+    if (_.isPlainObject(val)) {
       _.assign(result, util.flattenObject(val, path + '.'));
     } else {
       result[path] = val;
