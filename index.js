@@ -422,7 +422,7 @@ util.removeDiacritics = function(str) {
 
 util.makeSortKey = function() {
   var inputs = Array.prototype.slice.call(arguments);
-  if (_.every(inputs, function(input) { return intput == null; })) return;
+  if (_.every(inputs, function(input) { return input == null; })) return;
   inputs = inputs.join('');
   return util.removeDiacritics(inputs).toLowerCase();
 };
