@@ -137,50 +137,41 @@ util.getFunctionName = function(fn) {
 // 3 => 'num!3'
 // true => 'bool!1'
 util.encodeValue = function(val) {
-  if (_.isUndefined(val)) return;
-  if (_.isBoolean(val))
-    val = 'bool!' + (val ? '1' : '0');
-  else if (_.isNumber(val))
-    val = 'num!' + val;
-  else if (_.isArray(val))
-    val = val.map(util.encodeValue);
-  else if (!_.isString(val))
+  if (val == null) {
+    return val;
+  } else if (_.isBoolean(val)) {
+    return 'bool!' + (val ? '1' : '0');
+  } else if (_.isNumber(val)) {
+    return 'num!' + val;
+  } else if (_.isString(val)) {
+    return val;
+  } else if (_.isArray(val)) {
+    return val.map(util.encodeValue);
+  } else if (_.isPlainObject(val)) {
+    return _.mapValues(val, util.encodeValue);
+  } else {
     throw new Error('unsupported type');
-  return val;
-};
-
-util.encodeObject = function(obj) {
-  obj = this.flattenObject(obj);
-  var result = {};
-  _.forOwn(obj, function(val, key) {
-    result[key] = util.encodeValue(val);
-  });
-  return result;
+  }
 };
 
 util.decodeValue = function(val) {
   if (_.isString(val)) {
-    if (util.startsWith(val, 'bool!')) {
-      val = val.substr('bool!'.length);
-      val = (val === '1' ? true : false);
-    } else if (util.startsWith(val, 'num!')) {
-      val = val.substr('num!'.length);
-      val = Number(val);
+    if (val === 'bool!0') {
+      return false;
+    } else if (val === 'bool!1') {
+      return true;
+    } else if (_.startsWith(val, 'num!')) {
+      return Number(val.substr('num!'.length));
+    } else {
+      return val;
     }
   } else if (_.isArray(val)) {
-    val = val.map(util.decodeValue);
-  } else
+    return val.map(util.decodeValue);
+  } else if (_.isPlainObject(val)) {
+    return _.mapValues(val, util.decodeValue);
+  } else {
     throw new Error('invalid encoded value');
-  return val;
-};
-
-util.decodeObject = function(obj) {
-  var result = {};
-  _.forOwn(obj, function(val, key) {
-    result[key] = util.decodeValue(val);
-  });
-  result = this.expandObject(result);
-  return result;
+  }
 };
 
 util.encodeURIParameter = function(obj) {
