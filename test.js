@@ -1,9 +1,18 @@
-"use strict";
+'use strict';
 
-var assert = require('chai').assert;
-var util = require('./').create();
+let assert = require('chai').assert;
+let util = require('./src').create();
 
 suite('KindaUtil', function() {
+  test('makeSortKey()', function() {
+    assert.strictEqual(util.makeSortKey(), '');
+    assert.strictEqual(util.makeSortKey(undefined, undefined), '');
+    assert.strictEqual(util.makeSortKey(''), '');
+    assert.strictEqual(util.makeSortKey('', ''), '');
+    assert.strictEqual(util.makeSortKey('Élément'), 'element');
+    assert.strictEqual(util.makeSortKey('Jean', 'Durand'), 'jeandurand');
+  });
+
   test('encodeValue()', function() {
     assert.strictEqual(util.encodeValue(undefined), undefined);
 
@@ -62,6 +71,24 @@ suite('KindaUtil', function() {
     assert.deepEqual(
       util.decodeValue({ x: { a: 'bool!0' }, y: { b: 'b' } }),
       { x: { a: false }, y: { b: 'b' } }
+    );
+  });
+
+  test('flattenObject()', function() {
+    assert.deepEqual(
+      util.flattenObject(
+        { person: { firstName: 'Jean', lastName: 'Dupont' }, number: 123 }
+      ),
+      { 'person.firstName': 'Jean', 'person.lastName': 'Dupont', number: 123 }
+    );
+  });
+
+  test('expandObject()', function() {
+    assert.deepEqual(
+      util.expandObject(
+        { 'person.firstName': 'Jean', 'person.lastName': 'Dupont', number: 123 }
+      ),
+      { person: { firstName: 'Jean', lastName: 'Dupont' }, number: 123 }
     );
   });
 });
