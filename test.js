@@ -4,6 +4,10 @@ let assert = require('chai').assert;
 let util = require('./src').create();
 
 suite('KindaUtil', function() {
+  test('getEnvironment()', function() {
+    assert.strictEqual(util.getEnvironment(), 'test');
+  });
+
   test('makeSortKey()', function() {
     assert.strictEqual(util.makeSortKey(), '');
     assert.strictEqual(util.makeSortKey(undefined, undefined), '');

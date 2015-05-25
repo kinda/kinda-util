@@ -14,13 +14,13 @@
     "release-patch": "npm run release --release-type=patch",
     "release-minor": "npm run release --release-type=minor",
     "release-major": "npm run release --release-type=major",
-    "test": "mocha --compilers js:babel/register --ui tdd"
+    "test": "env NODE_ENV=test mocha --compilers js:babel/register --ui tdd"
   },
   "author": "Manuel Vila <mvila@3base.com>",
   "license": "MIT",
   "dependencies": {
     "base64url": "^1.0.4",
-    "kinda-object": "^0.2.0",
+    "kinda-class": "^0.4.0",
     "lodash": "^3.9.1"
   },
   "devDependencies": {

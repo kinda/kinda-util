@@ -2,9 +2,17 @@
 
 let _ = require('lodash');
 let base64url = require('base64url');
-let KindaObject = require('kinda-object');
+let KindaClass = require('kinda-class');
 
-let KindaUtil = KindaObject.extend('KindaUtil', function() {
+let KindaUtil = KindaClass.extend('KindaUtil', function() {
+  this.getEnvironment = function() {
+    return (
+      process.env.NODE_ENV ||
+      (typeof window !== 'undefined' && window.BROWSER_ENVIRONMENT) ||
+      'development'
+    );
+  };
+
   this.makeSortKey = function(...inputs) {
     inputs = inputs.join('');
     return _.deburr(inputs).toLowerCase();
