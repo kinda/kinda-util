@@ -2,9 +2,9 @@
 
 let _ = require('lodash');
 let base64url = require('base64url');
-let KindaClass = require('kinda-class');
+let KindaObject = require('kinda-object');
 
-let KindaUtil = KindaClass.extend('KindaUtil', function() {
+let KindaUtil = KindaObject.extend('KindaUtil', function() {
   this.getEnvironment = function() {
     return (
       process.env.NODE_ENV ||
