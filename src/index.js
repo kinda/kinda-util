@@ -18,6 +18,18 @@ let KindaUtil = KindaObject.extend('KindaUtil', function() {
     return _.deburr(inputs).toLowerCase();
   };
 
+  this.pickAndRename = function(object, mapping) {
+    let result = {};
+    if (object != null) {
+      _.forOwn(mapping, function(newKey, oldKey) {
+        if (oldKey in object) {
+          result[newKey] = object[oldKey];
+        }
+      });
+    }
+    return result;
+  };
+
   // 'WOW' => 'WOW'
   // 3 => 'num!3'
   // true => 'bool!1'

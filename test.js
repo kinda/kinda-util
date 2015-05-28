@@ -17,6 +17,17 @@ suite('KindaUtil', function() {
     assert.strictEqual(util.makeSortKey('Jean', 'Durand'), 'jeandurand');
   });
 
+  test('pickAndRename()', function() {
+    assert.deepEqual(util.pickAndRename(), {});
+    assert.deepEqual(util.pickAndRename(undefined, { 'a': 'a' }), {});
+    assert.deepEqual(util.pickAndRename({ a: 1, b: 2 }), {});
+    assert.deepEqual(util.pickAndRename({ a: 1, b: 2 }, { 'a': 'a' }), { a: 1 });
+    assert.deepEqual(
+      util.pickAndRename({ a: 1, b: 2 }, { 'a': 'x', 'b': 'y' }),
+      { x: 1, y: 2 }
+    );
+  });
+
   test('encodeValue()', function() {
     assert.strictEqual(util.encodeValue(undefined), undefined);
 
