@@ -141,8 +141,8 @@ let KindaUtil = KindaObject.extend('KindaUtil', function() {
   };
 
   this.getFunctionName = function(fn) {
-    if (fn.name) return fn.name;
     if (fn.displayName) return fn.displayName;
+    if (fn.name) return fn.name;
     let name = fn.toString();
     name = name.substr('function '.length);
     let pos = name.indexOf('(');
