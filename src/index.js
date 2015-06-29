@@ -1,5 +1,6 @@
 'use strict';
 
+let os = require('os');
 let _ = require('lodash');
 let base64url = require('base64url');
 let KindaObject = require('kinda-object');
@@ -7,10 +8,23 @@ let KindaObject = require('kinda-object');
 let KindaUtil = KindaObject.extend('KindaUtil', function() {
   this.getEnvironment = function() {
     return (
-      process.env.NODE_ENV ||
-      (typeof window !== 'undefined' && window.BROWSER_ENVIRONMENT) ||
+      process.env && process.env.NODE_ENV ||
+      process.browser && window.BROWSER_ENVIRONMENT ||
       'development'
     );
+  };
+
+  this.getHostName = function() {
+    let hostName;
+    if (process.browser) {
+      hostName = 'client';
+    } else {
+      hostName = os.hostname();
+      if (_.endsWith(hostName, '.local')) {
+        hostName = hostName.slice(0, -6);
+      }
+    }
+    return hostName;
   };
 
   this.makeSortKey = function(...inputs) {

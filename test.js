@@ -8,6 +8,10 @@ suite('KindaUtil', function() {
     assert.strictEqual(util.getEnvironment(), 'test');
   });
 
+  test('getHostName()', function() {
+    assert.ok(util.getHostName());
+  });
+
   test('makeSortKey()', function() {
     assert.strictEqual(util.makeSortKey(), '');
     assert.strictEqual(util.makeSortKey(undefined, undefined), '');
