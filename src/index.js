@@ -23,6 +23,7 @@ let KindaUtil = KindaObject.extend('KindaUtil', function() {
       if (_.endsWith(hostName, '.local')) {
         hostName = hostName.slice(0, -6);
       }
+      if (!hostName) hostName = 'unknown-host';
     }
     return hostName;
   };
