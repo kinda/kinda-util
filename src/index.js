@@ -135,11 +135,17 @@ let KindaUtil = KindaObject.extend('KindaUtil', function() {
     return Math.round(date.getTime() / 1000);
   };
 
+  this.timeout = function(interval = 0) {
+    return new Promise(function(resolve) {
+      setTimeout(resolve, interval);
+    });
+  };
+
   this.createTimeout = function(ms) {
     let timeout, cbCaller;
     return {
       start() {
-        return function(cb) {
+        return function(cb) { // TODO: return a promise instead of a thunk
           cbCaller = function() {
             if (!timeout) return;
             timeout = undefined;
