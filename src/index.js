@@ -142,21 +142,25 @@ let KindaUtil = KindaObject.extend('KindaUtil', function() {
   };
 
   this.createTimeout = function(ms) {
-    let timeout, cbCaller;
+    let timeout, finish;
     return {
       start() {
-        return function(cb) { // TODO: return a promise instead of a thunk
-          cbCaller = function() {
+        return new Promise(function(resolve) {
+          finish = function() {
             if (!timeout) return;
             timeout = undefined;
-            cb();
+            resolve();
           };
-          timeout = setTimeout(cbCaller, ms);
-        };
+          timeout = setTimeout(finish, ms);
+        });
       },
       stop() {
         clearTimeout(timeout);
-        cbCaller();
+        finish();
+      },
+      cancel() {
+        clearTimeout(timeout);
+        timeout = undefined;
       }
     };
   };
